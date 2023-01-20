@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Alert,
   ScrollView,
   Text,
   TextInput,
@@ -11,6 +12,7 @@ import colors from "tailwindcss/colors";
 
 import { BackButton } from "../components/BackButton";
 import { Checkbox } from "../components/Checkbox";
+import { api } from "../lib/axios";
 
 const availableWeekDays = [
   "Sunday",
@@ -24,6 +26,7 @@ const availableWeekDays = [
 
 export const New = () => {
   const [weekDays, setWeekDays] = useState<number[]>([]);
+  const [title, setTitle] = useState("");
 
   const handleToggleWeekDay = (weekDayIndex: number) => {
     if (weekDays.includes(weekDayIndex)) {
@@ -32,6 +35,30 @@ export const New = () => {
       );
     } else {
       setWeekDays((prevState) => [...prevState, weekDayIndex]);
+    }
+  };
+
+  const handleCreateNewHabit = async () => {
+    try {
+      if (!title.trim() || weekDays.length === 0) {
+        Alert.alert(
+          "New habit",
+          "Enter the name of the habit and choose the frequency."
+        );
+      }
+
+      await api.post("/habits", { title, weekDays });
+
+      setTitle("");
+      setWeekDays([]);
+
+      Alert.alert("New habit", "Habit created successfully!");
+    } catch (error) {
+      console.log(error);
+      Alert.alert(
+        "Oops",
+        "It was not possible to create the new habit. Try again later."
+      );
     }
   };
 
@@ -55,6 +82,8 @@ export const New = () => {
           className="h-12 pl-4 rounded-lg mt-3 bg-zinc-900 text-white border-2 border-zinc-800 focus:border-violet-600"
           placeholder="E.g.: exercise, read a chapter, sleep well..."
           placeholderTextColor={colors.zinc[400]}
+          onChangeText={setTitle}
+          value={title}
         />
 
         <Text className="font-semibold mt-4 mb-3 text-white text-base">
@@ -73,6 +102,7 @@ export const New = () => {
         <TouchableOpacity
           className="w-full h-14 flex-row items-center justify-center bg-violet-600 rounded-md mt-6"
           activeOpacity={0.7}
+          onPress={handleCreateNewHabit}
         >
           <Feather name="check" size={20} color={colors.white} />
 
