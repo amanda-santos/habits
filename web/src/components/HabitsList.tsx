@@ -21,6 +21,7 @@ interface HabitsInfo {
 
 export const HabitsList = ({ date, onCompletedChanged }: HabitListProps) => {
   const [habitsInfo, setHabitsInfo] = useState<HabitsInfo>();
+  const isDateInPast = dayjs(date).endOf("day").isBefore(new Date());
 
   useEffect(() => {
     api
@@ -58,8 +59,6 @@ export const HabitsList = ({ date, onCompletedChanged }: HabitListProps) => {
     onCompletedChanged(completedHabits.length);
   }
 
-  const isDateInPast = dayjs(date).endOf("day").isBefore(new Date());
-
   return (
     <div className="mt-6 flex flex-col gap-3">
       {habitsInfo?.possibleHabits.map((habit) => {
@@ -83,6 +82,12 @@ export const HabitsList = ({ date, onCompletedChanged }: HabitListProps) => {
           </Checkbox.Root>
         );
       })}
+
+      {isDateInPast && (
+        <p className="text-white mt-1">
+          You cannot edit habits from a past date.
+        </p>
+      )}
     </div>
   );
 };
