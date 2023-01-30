@@ -1,6 +1,5 @@
 <h1 align="center">
   ✔️ Habits
-  <hr />
   <img src="assets/cover.png" alt="" />
 </h1>
 
@@ -66,6 +65,9 @@ Technologies used to develop this project:
 
 ## 🖥 Preview
 
+https://user-images.githubusercontent.com/49074930/215616330-32e2db00-2d3d-47cd-90cc-1589ecc46c63.mp4
+
+https://user-images.githubusercontent.com/49074930/215616345-1113540a-6dda-4d94-9b00-9f5ed76df6da.mp4
 
 ## ⌨ Getting started
 
