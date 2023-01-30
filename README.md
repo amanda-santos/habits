@@ -1,7 +1,7 @@
 <h1 align="center">
   ✔️ Habits
-  <img src="assets/cover.png" alt="" />
 </h1>
+<img src="assets/cover.png" alt="" />
 
 <p align="center">
   <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/amanda-santos/habits">
